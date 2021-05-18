@@ -56,12 +56,12 @@ bool wait_write = false;
   input_read++; //increment if a process starts reading
   input->signal();//send the signal
   //Reading the data
-  out->wait(process_id); // wait on the out semaphore 
-  out_ctr++;             // increment out_ctr after reading complete
-  if(input_read == out_ctr && wait_write) {   //writer is waiting and it is last reader
+  output->wait(procid); // wait on the out semaphore 
+  output_read++;             // increment after reader completed
+  if(input_read == output_read && wait_write) {   //writer is waiting and it is last reader
       write->signal();                     
     }                                       // signal write semaphore
-  out->signal();
+  output->signal();
 
 //Writer Process
 input->wait(procid); 
@@ -76,7 +76,7 @@ if(input_read == output_read) {   // no processes currently reading
 }
 
 //Writing data
-in->signal();
+input->signal();
 ```
 ## Conclusion
 
