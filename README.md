@@ -25,7 +25,7 @@ struct Semaphore{
   Queue* que = new Queue();
   int val;
   
-  void wait(int process){
+  void wait(int procid){
     val--;
     if(val<0){
     que->push(procid);
@@ -33,7 +33,7 @@ struct Semaphore{
     }
   }
   void signal(){
-    val==;
+    val++;
     if(val<=0){
       int procid = que->pop();
       wake(procid);
@@ -43,9 +43,9 @@ struct Semaphore{
 
 //Global Variables
 Semaphore* input, output, write;
-input->val = 1;// initial value is set to 1
-output->val = 1;// initial value is set to 1
-write->val = 0; // initial value is set to 0
+input.val = 1;// initial value of input is set to 1
+output.val = 1;// initial value ofoutput is set to 1
+write.val = 0; // initial value of write is set to 0
 
 int input_read = 0;//started reading by readers
 int output_read = 0;//completed reading by readers
