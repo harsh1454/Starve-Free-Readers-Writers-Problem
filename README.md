@@ -18,7 +18,40 @@ Firstly, we will design a semaphore which handles processes in the FIFO(First-In
 
 ```C++
 //declare a struct Process with an int procid element
+Struct Proc {
+    Proc* next;
+    int process_id;
+}
 //declare a struct Queue which takes procid as input and construct two functions push and pop 
+struct Queue {
+    Proc* head, back;
+    
+   	void push(int procid) {
+        Proc* proc = new Proc();
+        proc->process_id = procid;
+        if(back == NULL) {
+            head = proc;
+            back = proc; 
+        } else {
+            back->next = proc;
+            back = proc;
+        }
+    }
+    
+    int pop() {
+        if(head == NULL) {
+            return -1; // underflow 
+        } else {
+            int procid = head->process_id;
+            head = head->next;
+            if(head == NULL) {
+                back = NULL;
+            }
+            
+            return procid;
+        }
+    }
+}
 
 //declaring Semaphore struct
 struct Semaphore{
